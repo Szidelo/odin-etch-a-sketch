@@ -150,13 +150,23 @@ body {
     flex-wrap: wrap;
 }
 
-.square-lg {
-    width: 43.75px;
-    height: 43.75px;
+.square {
     border: 1px solid var(--vivid-green);
     transition: all 0.3s ease-out;
     &:hover {
         background-color: var(--vivid-green);
     }
 }
+
+.square-lg {
+    width: 43.75px;
+    height: 43.75px;
+}
+
+.square-sm {
+    width: 5.46875px;
+    height: 5.46875px;
+}
+
+
 
