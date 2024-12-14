@@ -16,6 +16,7 @@
     --terminal-bg: #02170a;
     --button-bg: #14271a;
     --button-border: #1dd767;
+    --sketch-width: 700px;
 }
 
 body {
@@ -158,14 +159,24 @@ body {
     }
 }
 
+.square-xl {
+    width: calc(var(--sketch-width)  / 16);
+    height: calc(var(--sketch-width)  / 16);
+}
+
+.square-md {
+    width: calc(var(--sketch-width) / 32) ;
+    height: calc(var(--sketch-width) / 32) ;
+}
+
 .square-lg {
-    width: 43.75px;
-    height: 43.75px;
+    width: calc(var(--sketch-width) / 64) ;
+    height: calc(var(--sketch-width) / 64) ;
 }
 
 .square-sm {
-    width: 5.46875px;
-    height: 5.46875px;
+    width: calc(var(--sketch-width) / 128);
+    height: calc(var(--sketch-width) / 128);
 }
 
 
