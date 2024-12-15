@@ -20,7 +20,7 @@
 }
 
 body {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     background: var(--almost-black);
     color: var(--primary-accent);
     display: flex;
@@ -118,7 +118,7 @@ body {
 }
 
 #display:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -136,7 +136,7 @@ body {
 }
 
 .line::before {
-    content: '>'; /* Simulates a terminal prompt */
+    content: ">"; /* Simulates a terminal prompt */
     margin-right: 10px;
     color: var(--vivid-green);
 }
@@ -160,24 +160,21 @@ body {
 }
 
 .square-xl {
-    width: calc(var(--sketch-width)  / 16);
-    height: calc(var(--sketch-width)  / 16);
-}
-
-.square-md {
-    width: calc(var(--sketch-width) / 32) ;
-    height: calc(var(--sketch-width) / 32) ;
+    width: calc(var(--sketch-width) / 16);
+    height: calc(var(--sketch-width) / 16);
 }
 
 .square-lg {
-    width: calc(var(--sketch-width) / 64) ;
-    height: calc(var(--sketch-width) / 64) ;
+    width: calc(var(--sketch-width) / 32);
+    height: calc(var(--sketch-width) / 32);
+}
+
+.square-md {
+    width: calc(var(--sketch-width) / 64);
+    height: calc(var(--sketch-width) / 64);
 }
 
 .square-sm {
     width: calc(var(--sketch-width) / 128);
     height: calc(var(--sketch-width) / 128);
 }
-
-
-
