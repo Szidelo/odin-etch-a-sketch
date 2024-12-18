@@ -8,6 +8,11 @@
 // on clear should reset the app
 // should keep the square classes in a list or constant to be able to change easyer
 
+const COLORS = {
+    SQUARE_GREEN: "#137e3e",
+    SQUARE_TRANSPARENT: "transparent",
+};
+
 const GRID_SIZES = {
     SMALL: 16,
     MEDIUM: 32,
@@ -22,14 +27,25 @@ const SQUARE_STYLES = {
     SMALL_CLASS: "square-sm",
 };
 
-const sketchContainer = document.querySelector("#sketch");
-const btnSmallGrid = document.querySelector("#s16");
-const btnMediumGrid = document.querySelector("#s32");
-const btnLargeGrid = document.querySelector("#s64");
-const btnExtraLargeGrid = document.querySelector("#s128");
+const prompts = document.querySelectorAll(".line");
+const display = document.querySelector("#display");
+const sketchContainer = document.createElement("div");
+sketchContainer.id = "sketch";
+console.log(sketchContainer);
+const optionButtons = document.querySelectorAll(".options");
+
+const btnErase = document.querySelector("#eraser");
+
+let isEraseActive = false;
+let gameIsRunning = false;
+
+const eraseSquare = (squareElement) => {
+    console.log("erase");
+    squareElement.style.backgroundColor = COLORS.SQUARE_TRANSPARENT;
+};
 
 const paintSquare = (squareElement) => {
-    squareElement.style.backgroundColor = "#137e3e";
+    squareElement.style.backgroundColor = COLORS.SQUARE_GREEN;
 };
 
 const generateGrid = (gridSize) => {
@@ -65,18 +81,63 @@ const generateGrid = (gridSize) => {
 
         // event listener for painting squares
         squareElement.addEventListener("mousedown", () => {
-            paintSquare(squareElement);
+            isEraseActive
+                ? eraseSquare(squareElement)
+                : paintSquare(squareElement);
         });
     }
 };
 
+btnErase.addEventListener("click", () => {
+    isEraseActive = !isEraseActive;
+});
+
 // Event listeners for grid size buttons
-btnSmallGrid.addEventListener("click", () => generateGrid(GRID_SIZES.SMALL));
-btnMediumGrid.addEventListener("click", () => generateGrid(GRID_SIZES.MEDIUM));
-btnLargeGrid.addEventListener("click", () => generateGrid(GRID_SIZES.LARGE));
-btnExtraLargeGrid.addEventListener("click", () =>
-    generateGrid(GRID_SIZES.EXTRA_LARGE)
-);
+
+let currentActiveButton = null; // variable to keep track of the active btn to be able to remove class active for the rest of the btns
+
+optionButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        if (!gameIsRunning) {
+            prompts.forEach((line) => {
+                display.removeChild(line);
+            });
+            display.appendChild(sketchContainer);
+            gameIsRunning = true;
+        }
+
+        const { SMALL, MEDIUM, LARGE, EXTRA_LARGE } = GRID_SIZES;
+        const btnId = e.currentTarget.id;
+        const led = e.currentTarget.firstElementChild;
+
+        if (currentActiveButton !== btn) {
+            if (currentActiveButton) {
+                currentActiveButton.firstElementChild.classList.remove(
+                    "active"
+                );
+            }
+
+            led.classList.add("active");
+            //set the clicked btn as active button
+            currentActiveButton = btn;
+
+            switch (btnId) {
+                case "s16":
+                    generateGrid(SMALL);
+                    break;
+                case "s32":
+                    generateGrid(MEDIUM);
+                    break;
+                case "s64":
+                    generateGrid(LARGE);
+                    break;
+                case "s128":
+                    generateGrid(EXTRA_LARGE);
+                    break;
+            }
+        }
+    });
+});
 
 // init default grid
-generateGrid(GRID_SIZES.SMALL);
+// generateGrid(GRID_SIZES.SMALL);
