@@ -11,6 +11,7 @@
 const COLORS = {
     SQUARE_GREEN: "#137e3e",
     SQUARE_TRANSPARENT: "transparent",
+    SQUARE_BORDER: "#137e3e",
 };
 
 const GRID_SIZES = {
@@ -33,11 +34,26 @@ const sketchContainer = document.createElement("div");
 sketchContainer.id = "sketch";
 console.log(sketchContainer);
 const optionButtons = document.querySelectorAll(".options");
+const toggleGridBtn = document.querySelector("#toggle-grid");
 
 const btnErase = document.querySelector("#eraser");
 
 let isEraseActive = false;
 let gameIsRunning = false;
+let gridIsVisible = true;
+
+const toggleGrid = () => {
+    gridIsVisible = !gridIsVisible;
+    const { SQUARE_TRANSPARENT, SQUARE_BORDER } = COLORS;
+    const squares = document.querySelectorAll(".square") || null;
+    if (squares) {
+        squares.forEach((square) => {
+            square.style.borderColor = gridIsVisible
+                ? SQUARE_BORDER
+                : SQUARE_TRANSPARENT;
+        });
+    }
+};
 
 const eraseSquare = (squareElement) => {
     console.log("erase");
@@ -138,6 +154,8 @@ optionButtons.forEach((btn) => {
         }
     });
 });
+
+toggleGridBtn.addEventListener("click", toggleGrid);
 
 // init default grid
 // generateGrid(GRID_SIZES.SMALL);
