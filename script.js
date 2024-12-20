@@ -33,9 +33,12 @@ const SQUARE_STYLES = {
 const prompts = document.querySelectorAll(".line");
 const display = document.querySelector("#display");
 const sketchContainer = document.createElement("div");
+
+// buttons
 const optionButtons = document.querySelectorAll(".options");
 const toggleGridBtn = document.querySelector("#toggle-grid");
 const btnErase = document.querySelector("#eraser");
+const btnClear = document.querySelector("#clear");
 
 sketchContainer.id = "sketch";
 
@@ -119,9 +122,14 @@ const generateGrid = (gridSize) => {
 	}
 };
 
-btnErase.addEventListener("click", () => {
-	isEraseActive = !isEraseActive;
-});
+const clearGrid = () => {
+	const squares = document.querySelectorAll(".square") || null;
+	if (squares) {
+		squares.forEach((square) => {
+			square.style.backgroundColor = COLORS.SQUARE_TRANSPARENT;
+		});
+	}
+};
 
 // Event listeners for grid size buttons
 
@@ -169,3 +177,7 @@ optionButtons.forEach((btn) => {
 });
 
 toggleGridBtn.addEventListener("click", toggleGrid);
+btnErase.addEventListener("click", () => {
+	isEraseActive = !isEraseActive;
+});
+btnClear.addEventListener("click", clearGrid);

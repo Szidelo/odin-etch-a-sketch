@@ -1,68 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="style.css" />
-        <title>Cyber Etch a Sketch</title>
-    </head>
-    <body>
-        <main id="container">
-            <div id="menu">
-                <div class="button">Fill</div>
-                <div
-                    id="toggle-grid"
-                    class="button">
-                    Toggle grid
-                </div>
-                <div
-                    id="eraser"
-                    class="button">
-                    Eraser
-                </div>
-                <div class="button">Shades</div>
-                <div class="button">lightning</div>
-                <div class="button">Clear</div>
-                <div class="squares-selection">
-                    <div
-                        id="s16"
-                        class="options">
-                        <div class="option-light"></div>
-                        <p>16</p>
-                    </div>
-                    <div
-                        id="s32"
-                        class="options">
-                        <div class="option-light"></div>
-                        <p>32</p>
-                    </div>
-                    <div
-                        id="s64"
-                        class="options">
-                        <div class="option-light"></div>
-                        <p>64</p>
-                    </div>
-                    <div
-                        id="s128"
-                        class="options">
-                        <div class="option-light"></div>
-                        <p>128</p>
-                    </div>
-                </div>
-            </div>
-            <div id="display">
-                <div class="line">Initializing terminal...</div>
-                <div class="line">Loading system configurations...</div>
-                <div class="line">Connection to mainframe established.</div>
-                <div class="line">Select the grid size from left panel.</div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<title>Cyber Etch a Sketch</title>
+	</head>
+	<body>
+		<main id="container">
+			<div id="menu">
+				<div class="button">Fill</div>
+				<div id="toggle-grid" class="button">Toggle grid</div>
+				<div id="eraser" class="button">Eraser</div>
+				<div class="button">Shades</div>
+				<div class="button">lightning</div>
+				<div id="clear" class="button">Clear</div>
+				<div class="squares-selection">
+					<div id="s16" class="options">
+						<div class="option-light"></div>
+						<p>16</p>
+					</div>
+					<div id="s32" class="options">
+						<div class="option-light"></div>
+						<p>32</p>
+					</div>
+					<div id="s64" class="options">
+						<div class="option-light"></div>
+						<p>64</p>
+					</div>
+					<div id="s128" class="options">
+						<div class="option-light"></div>
+						<p>128</p>
+					</div>
+				</div>
+			</div>
+			<div id="display">
+				<div class="line">Initializing terminal...</div>
+				<div class="line">Loading system configurations...</div>
+				<div class="line">Connection to mainframe established.</div>
+				<div class="line">Select the grid size from left panel.</div>
 
-                <!-- <div id="sketch"></div> -->
-            </div>
-        </main>
-        <script src="script.js"></script>
-    </body>
+				<!-- <div id="sketch"></div> -->
+			</div>
+		</main>
+		<script src="script.js"></script>
+	</body>
 </html>
