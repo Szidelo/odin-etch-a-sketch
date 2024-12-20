@@ -85,6 +85,8 @@ const generateGrid = (gridSize) => {
 	// clear existing squares before generating a new grid
 	sketchContainer.innerHTML = "";
 
+	let isMouseDown = false; // flag to check if mouse is down
+
 	// generate squares
 	for (let i = 0; i < gridSize ** 2; i++) {
 		const squareElement = document.createElement("div");
@@ -99,20 +101,18 @@ const generateGrid = (gridSize) => {
 			isEraseActive ? eraseSquare(squareElement) : paintSquare(squareElement);
 		};
 
-		let changeColor = false;
-
 		// event listeners for painting squares
 		squareElement.addEventListener("mousedown", () => {
 			handleAction();
-			changeColor = true;
+			isMouseDown = true;
 		});
 
 		squareElement.addEventListener("mouseup", () => {
-			changeColor = false;
+			isMouseDown = false;
 		});
 
 		squareElement.addEventListener("mousemove", () => {
-			if (changeColor) {
+			if (isMouseDown) {
 				handleAction();
 			}
 		});
