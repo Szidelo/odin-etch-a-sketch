@@ -33,7 +33,6 @@ const SQUARE_STYLES = {
 const prompts = document.querySelectorAll(".line");
 const display = document.querySelector("#display");
 const sketchContainer = document.createElement("div");
-sketchContainer.id = "sketch";
 
 // buttons
 const optionButtons = document.querySelectorAll(".options");
@@ -116,6 +115,9 @@ const generateGrid = (gridSize) => {
 			if (isLightningActive) {
 				increaseLightning(squareElement);
 			}
+			if (isShadeActive) {
+				increaseShade(squareElement);
+			}
 		});
 
 		squareElement.addEventListener("mouseup", () => {
@@ -140,25 +142,21 @@ const clearGrid = () => {
 	}
 };
 
-const increaseShade = (e) => {
-	console.log("square", e.currentTarget);
-	console.log("isShadeActive:", isShadeActive);
+const increaseShade = (squareElement) => {
+	let currentColor = window.getComputedStyle(squareElement).backgroundColor;
+	console.log(currentColor);
+
+	let r = parseInt(currentColor.slice(4, 6));
+	let g = parseInt(currentColor.slice(3, 5));
+	let b = parseInt(currentColor.slice(5, 7));
+
+	console.log(r, g, b);
 };
 
 const increaseLightning = (squareElement) => {
 	// Get the current background color of the element
 	let currentColor = window.getComputedStyle(squareElement).backgroundColor;
-
-	// Check if the color is in RGB format (it should be, but just in case)
-	if (currentColor.startsWith("rgb")) {
-		// Convert RGB to LCH using CSS `color()` function
-		let lchColor = `lch(from ${currentColor} calc(l + 20) c h)`;
-
-		// Apply the increased lightness color to the background
-		squareElement.style.backgroundColor = lchColor;
-	}
-
-	console.log(squareElement);
+	console.log(currentColor);
 };
 
 // Event listeners for grid size buttons
