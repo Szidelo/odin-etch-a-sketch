@@ -142,27 +142,33 @@ const clearGrid = () => {
 	}
 };
 
-const increaseShade = (squareElement) => {
-	let currentColor = squareElement.style.backgroundColor;
-
-	if (!currentColor) {
-		return;
-	}
+const extractRGBValues = (element) => {
+	let currentColor = element.style.backgroundColor;
 	const extractedValues = currentColor.startsWith("rgba") ? currentColor.slice(5, -1).split(",") : currentColor.slice(4, -1).split(",");
 	const r = extractedValues[0];
 	const g = extractedValues[1];
 	const b = extractedValues[2];
 	let opacity = !extractedValues[3] ? 1 : extractedValues[3];
 
-	const newColor = `rgba(${r},${g}, ${b}, ${opacity - 0.1})`;
+	return { r, g, b, opacity };
+};
+
+const increaseShade = (squareElement) => {
+	const colorValues = extractRGBValues(squareElement);
+	const { r, g, b, opacity } = colorValues;
+
+	const newColor = `rgba(${r},${g}, ${b}, ${+opacity - 0.1})`;
 
 	squareElement.style.backgroundColor = newColor;
 };
 
 const increaseLightning = (squareElement) => {
-	// Get the current background color of the element
-	let currentColor = window.getComputedStyle(squareElement).backgroundColor;
-	console.log(currentColor);
+	const colorValues = extractRGBValues(squareElement);
+	const { r, g, b, opacity } = colorValues;
+
+	const newColor = `rgba(${r},${g}, ${b}, ${+opacity + 0.1})`;
+
+	squareElement.style.backgroundColor = newColor;
 };
 
 // Event listeners for grid size buttons
