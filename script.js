@@ -11,7 +11,7 @@
 // when changing the grid size the led light should turn on and off only for the selected size
 
 const COLORS = {
-	SQUARE_GREEN: "#137e3e",
+	SQUARE_GREEN: "rgba(19, 126, 62, 1)",
 	SQUARE_TRANSPARENT: "transparent",
 	SQUARE_BORDER: "#137e3e77",
 };
@@ -66,7 +66,13 @@ const eraseSquare = (squareElement) => {
 };
 
 const paintSquare = (squareElement) => {
-	squareElement.style.backgroundColor = COLORS.SQUARE_GREEN;
+	if (isShadeActive) {
+		increaseShade(squareElement);
+	} else if (isLightningActive) {
+		increaseLightning(squareElement);
+	} else {
+		squareElement.style.backgroundColor = COLORS.SQUARE_GREEN;
+	}
 };
 
 const generateGrid = (gridSize) => {
@@ -112,12 +118,6 @@ const generateGrid = (gridSize) => {
 		squareElement.addEventListener("mousedown", () => {
 			handleAction();
 			isMouseDown = true;
-			if (isLightningActive) {
-				increaseLightning(squareElement);
-			}
-			if (isShadeActive) {
-				increaseShade(squareElement);
-			}
 		});
 
 		squareElement.addEventListener("mouseup", () => {
@@ -126,7 +126,7 @@ const generateGrid = (gridSize) => {
 
 		// able to drag and draw while holding mouse down
 		squareElement.addEventListener("mousemove", () => {
-			if (isMouseDown) {
+			if (isMouseDown && (!isShadeActive || isLightningActive)) {
 				handleAction();
 			}
 		});
@@ -143,14 +143,20 @@ const clearGrid = () => {
 };
 
 const increaseShade = (squareElement) => {
-	let currentColor = window.getComputedStyle(squareElement).backgroundColor;
-	console.log(currentColor);
+	let currentColor = squareElement.style.backgroundColor;
 
-	let r = parseInt(currentColor.slice(4, 6));
-	let g = parseInt(currentColor.slice(3, 5));
-	let b = parseInt(currentColor.slice(5, 7));
+	if (!currentColor) {
+		return;
+	}
+	const extractedValues = currentColor.startsWith("rgba") ? currentColor.slice(5, -1).split(",") : currentColor.slice(4, -1).split(",");
+	const r = extractedValues[0];
+	const g = extractedValues[1];
+	const b = extractedValues[2];
+	let opacity = !extractedValues[3] ? 1 : extractedValues[3];
 
-	console.log(r, g, b);
+	const newColor = `rgba(${r},${g}, ${b}, ${opacity - 0.1})`;
+
+	squareElement.style.backgroundColor = newColor;
 };
 
 const increaseLightning = (squareElement) => {
@@ -205,16 +211,18 @@ optionButtons.forEach((btn) => {
 });
 
 toggleGridBtn.addEventListener("click", toggleGrid);
+btnClear.addEventListener("click", clearGrid);
+
 btnErase.addEventListener("click", () => {
 	isEraseActive = !isEraseActive;
 });
-btnClear.addEventListener("click", clearGrid);
 
 btnShades.addEventListener("click", () => {
 	isShadeActive = !isShadeActive;
+	isLightningActive = false;
 });
 
 btnLightning.addEventListener("click", () => {
 	isLightningActive = !isLightningActive;
-	console.log(isLightningActive);
+	isShadeActive = false;
 });

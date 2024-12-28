@@ -157,9 +157,10 @@ body {
 .square {
 	border: 1px solid var(--vivid-green);
 	transition: all 0.3s ease-out;
-	&:hover {
+	background-color: transparent;
+	/* &:hover {
 		background-color: var(--vivid-green) !important;
-	}
+	} */
 }
 
 .square-xl {
