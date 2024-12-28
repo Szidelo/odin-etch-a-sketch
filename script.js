@@ -40,10 +40,16 @@ const optionButtons = document.querySelectorAll(".options");
 const toggleGridBtn = document.querySelector("#toggle-grid");
 const btnErase = document.querySelector("#eraser");
 const btnClear = document.querySelector("#clear");
+const btnShades = document.querySelector("#shades");
+const btnLightning = document.querySelector("#lightning");
+
+sketchContainer.id = "sketch";
 
 let isEraseActive = false;
 let gameIsRunning = false;
 let gridIsVisible = true;
+let isShadeActive = false;
+let isLightningActive = false;
 
 const toggleGrid = () => {
 	gridIsVisible = !gridIsVisible;
@@ -107,12 +113,16 @@ const generateGrid = (gridSize) => {
 		squareElement.addEventListener("mousedown", () => {
 			handleAction();
 			isMouseDown = true;
+			if (isLightningActive) {
+				increaseLightning(squareElement);
+			}
 		});
 
 		squareElement.addEventListener("mouseup", () => {
 			isMouseDown = false;
 		});
 
+		// able to drag and draw while holding mouse down
 		squareElement.addEventListener("mousemove", () => {
 			if (isMouseDown) {
 				handleAction();
@@ -128,6 +138,27 @@ const clearGrid = () => {
 			square.style.backgroundColor = COLORS.SQUARE_TRANSPARENT;
 		});
 	}
+};
+
+const increaseShade = (e) => {
+	console.log("square", e.currentTarget);
+	console.log("isShadeActive:", isShadeActive);
+};
+
+const increaseLightning = (squareElement) => {
+	// Get the current background color of the element
+	let currentColor = window.getComputedStyle(squareElement).backgroundColor;
+
+	// Check if the color is in RGB format (it should be, but just in case)
+	if (currentColor.startsWith("rgb")) {
+		// Convert RGB to LCH using CSS `color()` function
+		let lchColor = `lch(from ${currentColor} calc(l + 20) c h)`;
+
+		// Apply the increased lightness color to the background
+		squareElement.style.backgroundColor = lchColor;
+	}
+
+	console.log(squareElement);
 };
 
 // Event listeners for grid size buttons
@@ -180,3 +211,12 @@ btnErase.addEventListener("click", () => {
 	isEraseActive = !isEraseActive;
 });
 btnClear.addEventListener("click", clearGrid);
+
+btnShades.addEventListener("click", () => {
+	isShadeActive = !isShadeActive;
+});
+
+btnLightning.addEventListener("click", () => {
+	isLightningActive = !isLightningActive;
+	console.log(isLightningActive);
+});
