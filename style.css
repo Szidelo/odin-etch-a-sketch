@@ -51,6 +51,10 @@ body {
 	border-radius: 20px 0 0 20px;
 }
 
+.color-picker-wrapper img {
+	display: none;
+}
+
 .button {
 	background: var(--button-bg);
 	border: 2px solid var(--button-border);

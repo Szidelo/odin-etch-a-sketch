@@ -33,6 +33,7 @@ const SQUARE_STYLES = {
 const prompts = document.querySelectorAll(".line");
 const display = document.querySelector("#display");
 const sketchContainer = document.createElement("div");
+const colorPicker = document.querySelector("#color-picker");
 
 // buttons
 const optionButtons = document.querySelectorAll(".options");
@@ -41,6 +42,7 @@ const btnErase = document.querySelector("#eraser");
 const btnClear = document.querySelector("#clear");
 const btnShades = document.querySelector("#shades");
 const btnLightning = document.querySelector("#lightning");
+const btnRainbow = document.querySelector("#rainbow");
 
 sketchContainer.id = "sketch";
 
@@ -49,6 +51,8 @@ let gameIsRunning = false;
 let gridIsVisible = true;
 let isShadeActive = false;
 let isLightningActive = false;
+let isRainbowActive = false;
+let bgColor = COLORS.SQUARE_GREEN;
 
 const toggleGrid = () => {
 	gridIsVisible = !gridIsVisible;
@@ -65,13 +69,18 @@ const eraseSquare = (squareElement) => {
 	squareElement.style.backgroundColor = COLORS.SQUARE_TRANSPARENT;
 };
 
+const getRandomColor = () => {
+	return Math.floor(Math.random() * 16777215).toString(16);
+};
+
 const paintSquare = (squareElement) => {
 	if (isShadeActive) {
 		increaseShade(squareElement);
 	} else if (isLightningActive) {
 		increaseLightning(squareElement);
 	} else {
-		squareElement.style.backgroundColor = COLORS.SQUARE_GREEN;
+		const randomColor = getRandomColor();
+		squareElement.style.backgroundColor = isRainbowActive ? `#${randomColor}` : bgColor;
 	}
 };
 
@@ -216,6 +225,10 @@ optionButtons.forEach((btn) => {
 	});
 });
 
+const watchColorPicker = (event) => {
+	bgColor = event.target.value;
+};
+
 toggleGridBtn.addEventListener("click", toggleGrid);
 btnClear.addEventListener("click", clearGrid);
 
@@ -226,9 +239,19 @@ btnErase.addEventListener("click", () => {
 btnShades.addEventListener("click", () => {
 	isShadeActive = !isShadeActive;
 	isLightningActive = false;
+	isRainbowActive = false;
 });
 
 btnLightning.addEventListener("click", () => {
 	isLightningActive = !isLightningActive;
 	isShadeActive = false;
+	isRainbowActive = false;
 });
+
+btnRainbow.addEventListener("click", () => {
+	isRainbowActive = !isRainbowActive;
+	isShadeActive = false;
+	isLightningActive = false;
+});
+
+colorPicker.addEventListener("change", watchColorPicker, false);
