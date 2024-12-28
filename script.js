@@ -13,7 +13,7 @@
 const COLORS = {
 	SQUARE_GREEN: "#137e3e",
 	SQUARE_TRANSPARENT: "transparent",
-	SQUARE_BORDER: "#137e3e",
+	SQUARE_BORDER: "#137e3e77",
 };
 
 const GRID_SIZES = {
@@ -33,14 +33,13 @@ const SQUARE_STYLES = {
 const prompts = document.querySelectorAll(".line");
 const display = document.querySelector("#display");
 const sketchContainer = document.createElement("div");
+sketchContainer.id = "sketch";
 
 // buttons
 const optionButtons = document.querySelectorAll(".options");
 const toggleGridBtn = document.querySelector("#toggle-grid");
 const btnErase = document.querySelector("#eraser");
 const btnClear = document.querySelector("#clear");
-
-sketchContainer.id = "sketch";
 
 let isEraseActive = false;
 let gameIsRunning = false;
