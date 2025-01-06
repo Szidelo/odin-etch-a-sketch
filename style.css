@@ -56,22 +56,17 @@ body {
 }
 
 .button {
+	display: flex;
+	align-items: center;
+	gap: 36px;
 	background: var(--button-bg);
-	border: 2px solid var(--button-border);
+	/* border: 2px solid var(--button-border); */
 	color: var(--primary-accent);
 	padding: 10px;
 	text-align: center;
 	font-size: 1.2rem;
 	cursor: pointer;
 	transition: all 0.05s ease;
-	&:hover {
-		background-color: var(--primary-accent);
-		border-color: var(--primary-accent);
-		color: var(--button-bg);
-	}
-	&:active {
-		transform: scale(0.95);
-	}
 }
 
 .squares-selection {

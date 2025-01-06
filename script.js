@@ -37,6 +37,7 @@ const colorPicker = document.querySelector("#color-picker");
 
 // buttons
 const optionButtons = document.querySelectorAll(".options");
+const menuButtons = document.querySelectorAll(".button");
 const toggleGridBtn = document.querySelector("#toggle-grid");
 const btnErase = document.querySelector("#eraser");
 const btnClear = document.querySelector("#clear");
@@ -46,6 +47,7 @@ const btnRainbow = document.querySelector("#rainbow");
 
 sketchContainer.id = "sketch";
 
+// flags
 let isEraseActive = false;
 let gameIsRunning = false;
 let gridIsVisible = true;
@@ -70,7 +72,7 @@ const eraseSquare = (squareElement) => {
 };
 
 const getRandomColor = () => {
-	return Math.floor(Math.random() * 16777215).toString(16);
+	return Math.floor(Math.random() * 16777215).toString(16); // generates a random color link: https://css-tricks.com/snippets/javascript/random-hex-color/
 };
 
 const paintSquare = (squareElement) => {
@@ -225,7 +227,18 @@ optionButtons.forEach((btn) => {
 	});
 });
 
-const watchColorPicker = (event) => {
+// menuButtons.forEach((btn) => {
+// 	btn.addEventListener("click", (e) => {
+// 		const led = e.currentTarget.firstElementChild;
+// 		if (!led.className.includes("active")) {
+// 			led.classList.add("active");
+// 		} else {
+// 			led.classList.remove("active");
+// 		}
+// 	});
+// });
+
+const selectColor = (event) => {
 	bgColor = event.target.value;
 };
 
@@ -254,4 +267,4 @@ btnRainbow.addEventListener("click", () => {
 	isLightningActive = false;
 });
 
-colorPicker.addEventListener("change", watchColorPicker, false);
+colorPicker.addEventListener("change", selectColor, false);
