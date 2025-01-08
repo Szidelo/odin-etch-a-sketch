@@ -37,13 +37,13 @@ const colorPicker = document.querySelector("#color-picker");
 
 // buttons
 const optionButtons = document.querySelectorAll(".options");
-const menuButtons = document.querySelectorAll(".button");
 const toggleGridBtn = document.querySelector("#toggle-grid");
 const btnErase = document.querySelector("#eraser");
 const btnClear = document.querySelector("#clear");
 const btnShades = document.querySelector("#shades");
 const btnLightning = document.querySelector("#lightning");
 const btnRainbow = document.querySelector("#rainbow");
+const menuButtons = [btnErase, btnShades, btnRainbow, btnLightning];
 
 sketchContainer.id = "sketch";
 
@@ -56,14 +56,56 @@ let isLightningActive = false;
 let isRainbowActive = false;
 let bgColor = COLORS.SQUARE_GREEN;
 
-const toggleGrid = () => {
+const handleToggleGrid = (e) => {
 	gridIsVisible = !gridIsVisible;
 	const { SQUARE_TRANSPARENT, SQUARE_BORDER } = COLORS;
 	const squares = document.querySelectorAll(".square") || null;
+	const led = e.currentTarget.firstElementChild;
+
+	if (gridIsVisible && !led.className.includes("active")) {
+		led.classList.add("active");
+	} else {
+		led.classList.remove("active");
+	}
+
 	if (squares) {
 		squares.forEach((square) => {
 			square.style.borderColor = gridIsVisible ? SQUARE_BORDER : SQUARE_TRANSPARENT;
 		});
+	}
+};
+
+const handleToggle = (activeButton) => {
+	const leds = menuButtons.map((btn) => btn.firstElementChild);
+
+	// check if btn is active
+	const isCurrentlyActive = activeButton.firstElementChild.classList.contains("active");
+
+	// deactivate all buttons and their leds
+	leds.forEach((led) => led.classList.remove("active"));
+	isEraseActive = false;
+	isShadeActive = false;
+	isRainbowActive = false;
+	isLightningActive = false;
+
+	if (isCurrentlyActive) return;
+
+	// Activate the clicked button's LED and functionality
+	activeButton.firstElementChild.classList.add("active");
+
+	switch (activeButton) {
+		case btnErase:
+			isEraseActive = true;
+			break;
+		case btnShades:
+			isShadeActive = true;
+			break;
+		case btnRainbow:
+			isRainbowActive = true;
+			break;
+		case btnLightning:
+			isLightningActive = true;
+			break;
 	}
 };
 
@@ -80,9 +122,11 @@ const paintSquare = (squareElement) => {
 		increaseShade(squareElement);
 	} else if (isLightningActive) {
 		increaseLightning(squareElement);
-	} else {
+	} else if (isRainbowActive) {
 		const randomColor = getRandomColor();
-		squareElement.style.backgroundColor = isRainbowActive ? `#${randomColor}` : bgColor;
+		squareElement.style.backgroundColor = `#${randomColor}`;
+	} else {
+		squareElement.style.backgroundColor = bgColor;
 	}
 };
 
@@ -144,7 +188,7 @@ const generateGrid = (gridSize) => {
 	}
 };
 
-const clearGrid = () => {
+const handleClearGrid = () => {
 	const squares = document.querySelectorAll(".square") || null;
 	if (squares) {
 		squares.forEach((square) => {
@@ -227,44 +271,13 @@ optionButtons.forEach((btn) => {
 	});
 });
 
-// menuButtons.forEach((btn) => {
-// 	btn.addEventListener("click", (e) => {
-// 		const led = e.currentTarget.firstElementChild;
-// 		if (!led.className.includes("active")) {
-// 			led.classList.add("active");
-// 		} else {
-// 			led.classList.remove("active");
-// 		}
-// 	});
-// });
-
 const selectColor = (event) => {
 	bgColor = event.target.value;
 };
 
-toggleGridBtn.addEventListener("click", toggleGrid);
-btnClear.addEventListener("click", clearGrid);
-
-btnErase.addEventListener("click", () => {
-	isEraseActive = !isEraseActive;
-});
-
-btnShades.addEventListener("click", () => {
-	isShadeActive = !isShadeActive;
-	isLightningActive = false;
-	isRainbowActive = false;
-});
-
-btnLightning.addEventListener("click", () => {
-	isLightningActive = !isLightningActive;
-	isShadeActive = false;
-	isRainbowActive = false;
-});
-
-btnRainbow.addEventListener("click", () => {
-	isRainbowActive = !isRainbowActive;
-	isShadeActive = false;
-	isLightningActive = false;
-});
-
+btnClear.addEventListener("click", handleClearGrid);
+toggleGridBtn.addEventListener("click", (e) => handleToggleGrid(e));
 colorPicker.addEventListener("change", selectColor, false);
+menuButtons.forEach((btn) => {
+	btn.addEventListener("click", () => handleToggle(btn));
+});
