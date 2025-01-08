@@ -9,51 +9,55 @@
 	<body>
 		<main id="container">
 			<div id="menu">
-				<div class="color-picker-wrapper">
-					<label for="color">Choose square color</label>
-					<input type="color" name="color" id="color-picker" value="#137e3e" />
-				</div>
-				<div id="toggle-grid" class="button">
-					<div class="option-light active"></div>
-					<p>Toggle Grid</p>
-				</div>
-				<div id="eraser" class="button">
-					<div class="option-light"></div>
-					<p>Eraser</p>
-				</div>
-				<div id="shades" class="button">
-					<div class="option-light"></div>
-					<p>Shades</p>
-				</div>
-				<div id="lightning" class="button">
-					<div class="option-light"></div>
-					<p>lightning</p>
-				</div>
-				<div id="rainbow" class="button">
-					<div class="option-light"></div>
-					<p>Rainbow</p>
-				</div>
-				<div id="clear" class="button">
-					<div class="option-light"></div>
-					<p>clear</p>
-				</div>
-				<h3 style="text-align: center">Select gird size</h3>
-				<div class="squares-selection">
-					<div id="s16" class="options">
-						<div class="option-light"></div>
-						<p>16</p>
+				<div id="menu-top">
+					<div class="color-picker-wrapper">
+						<input type="color" name="color" id="color-picker" value="#137e3e" />
+						<label for="color">Choose square color</label>
 					</div>
-					<div id="s32" class="options">
-						<div class="option-light"></div>
-						<p>32</p>
+					<div id="toggle-grid" class="button">
+						<div class="option-light active"></div>
+						<p>Toggle Grid</p>
 					</div>
-					<div id="s64" class="options">
+					<div id="eraser" class="button">
 						<div class="option-light"></div>
-						<p>64</p>
+						<p>Erase Square</p>
 					</div>
-					<div id="s128" class="options">
+					<div id="shades" class="button">
 						<div class="option-light"></div>
-						<p>128</p>
+						<p>Add Shade</p>
+					</div>
+					<div id="lightning" class="button">
+						<div class="option-light"></div>
+						<p>Add Lightning</p>
+					</div>
+					<div id="rainbow" class="button">
+						<div class="option-light"></div>
+						<p>Draw Rainbow</p>
+					</div>
+					<div id="clear" class="button">
+						<p class="btn-clear" style="margin: 0 auto">Clear All</p>
+					</div>
+				</div>
+
+				<div id="menu-bottom">
+					<h3 style="text-align: center">Select gird size</h3>
+					<div class="squares-selection">
+						<div id="s16" class="options">
+							<div class="option-light"></div>
+							<p>16</p>
+						</div>
+						<div id="s32" class="options">
+							<div class="option-light"></div>
+							<p>32</p>
+						</div>
+						<div id="s64" class="options">
+							<div class="option-light"></div>
+							<p>64</p>
+						</div>
+						<div id="s128" class="options">
+							<div class="option-light"></div>
+							<p>128</p>
+						</div>
 					</div>
 				</div>
 			</div>
